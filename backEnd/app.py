@@ -28,6 +28,8 @@ firebase_admin.initialize_app(cred, {
 RESTAURANTS = db.reference('restaurants')
 FOODIES = db.reference('foodies')
 CHEFS = db.reference('chefs')
+RSVP = db.reference('RSVP')
+MATCHED = db.reference('matched')
 
 ########### RESTAURANT FUNCTIONS ##############
 
@@ -63,5 +65,7 @@ def getRestaurantData():
 
 
 ########## MISC FUCTIONS #######################
+def createMatch(chefID, restID):
+    
 
 ########### END OF MISC FUNCTIONS ###########
