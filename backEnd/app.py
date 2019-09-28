@@ -39,7 +39,6 @@ def getRestaurantData():
         print(value)
     return(value)
 
-
 ########### END OF RESTAURANT FUNCTIONS ###########
 
 
