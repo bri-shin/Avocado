@@ -3,7 +3,7 @@ Backend server for Avocado - HackNY 2019
 '''
 
 # Flask Imports
-from flask
+import flask
 from flask import request
 
 # Firebase Imports
@@ -18,11 +18,13 @@ import json
 # Starting Up
 
 app = flask.Flask(__name__)
+
 cred = credentials.Certificate(
-    "seec-pennapps-firebase-adminsdk-7zh6f-41c2a963c2.json")
+    "tofu-hack-firebase-adminsdk-c151z-fe8bbb6fc3.json")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://seec-pennapps.firebaseio.com/'
+    'databaseURL': 'https://tofu-hack.firebaseio.com/'
 })
+
 
 ########### RESTAURANT FUNCTIONS ##############
 
