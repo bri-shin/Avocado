@@ -25,11 +25,24 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tofu-hack.firebaseio.com/'
 })
 
+RESTAURANTS = db.reference('restaurants')
+FOODIES = db.reference('foodies')
+CHEFS = db.reference('chefs')
 
 ########### RESTAURANT FUNCTIONS ##############
 
+@app.route("/get-restaurant-data", methods=['POST'])
+def getCustomerData():
+    print(request.json)
+    custID = request.json['RestID']
+    response = CUSTSTATS.order_by_child('custID').equal_to(custID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)   
+
 
 ########### END OF RESTAURANT FUNCTIONS ###########
+
 
 
 ########## CHEF FUCTIONS #######################
@@ -38,14 +51,17 @@ firebase_admin.initialize_app(cred, {
 ########### END OF CHEF FUNCTIONS ###########
 
 
+
 ########## FOODIE FUCTIONS #######################
 
 ########### END OF FOODIE FUNCTIONS ###########
 
 
+
 ########## GOOGLE MAPS FUNCTIONS #######################
 
 ########### END OF GOOGLE MAPS FUNCTIONS ###########
+
 
 
 ########## MISC FUCTIONS #######################
