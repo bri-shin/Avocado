@@ -44,13 +44,26 @@ def getRestaurantData():
 
 
 ########## CHEF FUCTIONS #######################
-
+@app.route("/get-chef-data", methods=['POST'])
+def getChefData():
+    ChefID = request.json['ChefID'] 
+    response = CHEFS.order_by_child('ChefID').equal_to(ChefID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
 ########### END OF CHEF FUNCTIONS ###########
 
 
 
 ########## FOODIE FUCTIONS #######################
+@app.route("/get-foodie-data", methods=['POST'])
+def getFoodieData():
+    FoodieID = request.json['CustID'] 
+    response = FOODIES.order_by_child('CustID').equal_to(FoodieID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
 ########### END OF FOODIE FUNCTIONS ###########
 
