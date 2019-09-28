@@ -32,13 +32,12 @@ CHEFS = db.reference('chefs')
 ########### RESTAURANT FUNCTIONS ##############
 
 @app.route("/get-restaurant-data", methods=['POST'])
-def getCustomerData():
-    print(request.json)
-    custID = request.json['RestID']
-    response = CUSTSTATS.order_by_child('custID').equal_to(custID).get()
+def getRestaurantData():
+    RestID = request.json['RestID'] 
+    response = RESTAURANTS.order_by_child('RestID').equal_to(RestID).get()
     for key, value in response.items():
         print(value)
-    return(value)   
+    return(value)
 
 
 ########### END OF RESTAURANT FUNCTIONS ###########
