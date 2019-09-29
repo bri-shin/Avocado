@@ -2,6 +2,7 @@
 An intimate platform that connects aspiring chefs to food enthusiasts at a warm kitchen space 
 
 <i>link: https://www.holyguacamoley.online</i>
+<i>link: https://devpost.com/software/avocado-gsvom9 </i>
 
 <i> Submitted to HackNY </i>
 
