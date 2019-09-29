@@ -45,6 +45,12 @@ def getAllChefs():
     response = CHEFS.get()
     return(json.dumps(response))
 
+
+@app.route("/get-all-foodies", methods=['GET'])
+def getAllFoodies():
+    response = FOODIES.get()
+    return(json.dumps(response))
+
 @app.route("/get-restaurant-data", methods=['POST'])
 def getRestaurantData():
     RestID = request.json['RestID']
