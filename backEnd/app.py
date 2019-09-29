@@ -104,6 +104,7 @@ def getFoodieData():
     for key, value in response.items():
         print(value)
     return(value)
+<<<<<<< HEAD
 
 @app.route("/add-favorite", methods=['POST'])
 def addFavorite():
@@ -120,6 +121,9 @@ def addFavorite():
     return favorite_chef
 
 
+=======
+    
+>>>>>>> e3c99941c3833cf82e87eb611373e957bc2736ee
 ########### END OF FOODIE FUNCTIONS ###########
 
 
@@ -134,7 +138,6 @@ def createMatch():
     match = request.json
     print(type(match))
     create_match = MATCHED.push(match)
-
     return create_match
 
 ########### END OF MISC FUNCTIONS ###########
