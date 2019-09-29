@@ -21,18 +21,20 @@ const API_URL = 'https://avocadohackny.appspot.com'
 export const actions = {
   async getAllRestaurants ({ commit }) {
     const data = await this.$axios.$get(`${API_URL}/get-all-restaurants`)
-    commit('SET_RESTAURANTS', data)
+    const arr = Object.values(data)
+    commit('SET_RESTAURANTS', arr)
   },
   async getAllChefs ({ commit }) {
     const data = await this.$axios.$get(`${API_URL}/get-all-chefs`)
-    commit('SET_CHEFS', data)
+    const arr = Object.values(data)
+    commit('SET_CHEFS', arr)
   },
   async getMatchByRestId ({ commit }) {
     const data = await this.$axios.$get(`${API_URL}/get-match-by-restid`)
     commit('SET_MATCHES', data)
   },
-  async getMatchByCustId ({ commit }) {
-    const data = await this.$axios.$get(`${API_URL}/get-match-by-custid`)
+  async getMatchByChefId ({ commit }) {
+    const data = await this.$axios.$get(`${API_URL}/get-match-by-chefid`)
     commit('SET_MATCHES', data)
   }
 }

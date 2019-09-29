@@ -112,6 +112,12 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    restInfo () {
+      const { id } = this.$route.params
+      const restaurants = this.$store.state.restaurants
+    }
   }
 }
 </script>

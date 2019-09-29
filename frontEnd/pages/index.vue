@@ -43,10 +43,6 @@
 export default {
   name: 'LandingPage',
   layout: 'default',
-  mounted () {
-    this.$store.dispatch('getAllRestaurants')
-    console.log('Mounted')
-  },
   methods: {
     navigateTo (url, id) {
       this.$router.push(url)

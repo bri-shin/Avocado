@@ -83,25 +83,39 @@
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
-                    Chef One
+                    <h4>Chef Gordon Ramsay</h4>
                   </v-list-item-title>
                   <v-divider />
                   <v-list-item-subtitle>
-                    This is the description for this guy
+                    <p>
+                      Hi! I am a local chef who has speciality in all types of cooking and always looking to find new cuisines!
+                    </p>
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    About the dish
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Ingredients List
-                  </v-list-item-subtitle>
-                  <v-divider />
-                  <v-list-item-subtitle>
-                    Date
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Time
-                  </v-list-item-subtitle>
+                  <v-expand-transition>
+                    <v-card
+                      v-show="expand"
+                      flat
+                      height="100"
+                      width="100"
+                      class="mx-auto"
+                    >
+                      <v-list-item-subtitle>
+                        About the dish
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        Ingredients List
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        Date
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        Time
+                      </v-list-item-subtitle>
+                    </v-card>
+                  </v-expand-transition>
+                  <v-icon @click="expand = !expand">
+                    {{ expand ? `mdi-arrow-up` : `mdi-arrow-down` }}
+                  </v-icon>
                 </v-list-item-content>
               </v-list-item>
             </v-card>
@@ -136,6 +150,7 @@ export default {
   layout: 'landing',
   data () {
     return {
+      expand: false,
       commission: {
         time: '',
         date: '2019-09-29'
@@ -183,6 +198,15 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    restList () {
+      return this.$store.state.matches
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getMatchByRestId', 'Rest001')
+    console.log('Mounted')
   }
 }
 </script>

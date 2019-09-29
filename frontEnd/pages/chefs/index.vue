@@ -27,10 +27,10 @@
       <v-list three-line max-height="93%" class="overflow-y-auto chef__list">
         <v-list-item-group v-model="selected">
           <v-list-item
-            v-for="(item, i) in restaurant_list"
+            v-for="(item, i) in restList"
             :key="i"
             class="chef__restaurant__item"
-            @click="navigateTo(item.id)"
+            @click="navigateTo(item.RestID)"
           >
             <v-list-item-icon>
               <v-avatar color="primary">
@@ -38,9 +38,9 @@
               </v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title v-text="item.name" />
-              <v-list-item-subtitle v-text="item.location" />
-              <v-list-item-subtitle v-text="`${item.cuisine} Cuisine`" />
+              <v-list-item-title v-text="item.Name" />
+              <!-- <v-list-item-subtitle v-text="item.location" /> -->
+              <v-list-item-subtitle v-text="`${item.Cuisine.join(', ')} Cuisine`" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -49,7 +49,7 @@
     <v-flex v-if="panelList[selectedPanel] == 'Restaurants'">
       <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="14" :options="options">
         <gmap-marker
-          v-for="(item, index) in restaurant_list"
+          v-for="(item, index) in restList"
           :key="index"
           :position="item.position"
           @click="center = item.position"
@@ -74,7 +74,7 @@ export default {
       panelList: ['Restaurants', 'Status'],
       selectedPanel: 0,
       selected: '',
-      center: { lat: 40.730610, lng: -73.935242 },
+      center: { lat: 40.729772, lng: -73.99941111 },
       mapTypeId: 'terrain',
       options: {
         mapTypeControl: false,
@@ -150,6 +150,16 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    restList () {
+      return this.$store.state.restaurants
+    }
+  },
+  created () {
+    this.$store.dispatch('getAllRestaurants')
+    // this.$store.dispatch('getAllMatchesByChefId')
+    console.log('Mounted')
   },
   methods: {
     navigateTo (id) {
