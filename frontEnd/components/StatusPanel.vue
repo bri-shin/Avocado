@@ -27,14 +27,14 @@
               cols="3"
             >
               <v-card>
-                <v-img :src="getRestImage(item.RestID)" />
+                <v-img :src="getRestImage(item.RestID)" class="status__image" />
                 <v-card-title>
                   {{ getRestName(item.RestID) }}
                 </v-card-title>
                 <v-card-text>
                   <v-divider />
                   <p class="status__subtitle__header">
-                    Proposed Cusine
+                    Proposed Plan
                   </p>
                   <p class="status__subtitle status__subtitle__first">
                     {{ `${item.Cuisine[0]} Cuisine` }}
@@ -56,15 +56,32 @@
         <v-container>
           <v-row>
             <v-col
-              v-for="n in 9"
-              :key="n"
+              v-for="item in pending"
+              :key="item.index"
               class="d-flex child-flex"
               cols="3"
             >
               <v-card>
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" />
-                <v-card-title>Card Title</v-card-title>
-                <v-card-text>Card Text</v-card-text>
+                <v-img :src="getRestImage(item.RestID)" class="status__image" />
+                <v-card-title>
+                  {{ getRestName(item.RestID) }}
+                </v-card-title>
+                <v-card-text>
+                  <v-divider />
+                  <p class="status__subtitle__header">
+                    Proposed Plan
+                  </p>
+                  <p class="status__subtitle status__subtitle__first">
+                    {{ `${item.Cuisine[0]} Cuisine` }}
+                  </p>
+                  <p class="status__subtitle status__subtitle__title">
+                    {{ item.Description }}
+                  </p>
+                  <p class="status__subtitle">
+                    {{ item.Ingredients.join(', ') }}
+                  </p>
+                  <p>{{ item.time || 'Monday, 6-8pm' }}</p>
+                </v-card-text>
               </v-card>
             </v-col>
           </v-row>
@@ -141,5 +158,9 @@ export default {
 }
 .status__subtitle__first {
   margin-top: 12px;
+}
+.status__image {
+  min-height: 50%;
+  max-height: 50%;
 }
 </style>
