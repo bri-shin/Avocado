@@ -23,7 +23,7 @@
       <v-container>
         <v-row>
           <v-col
-            v-for="item in matched"
+            v-for="item in matchList"
             :key="item.index"
             class="d-flex child-flex"
             cols="4"
@@ -37,25 +37,26 @@
                   <img src="../../static/chef-face.jpeg">
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title>
-                    Chef One
+                  <v-list-item-title style="font-weight: bold;">
+                    Chef Gorden Ramsay
                   </v-list-item-title>
-                  <v-divider />
                   <v-list-item-subtitle>
-                    This is the description for this guy
+                    Local Chef interested in Korean Food
+                  </v-list-item-subtitle>
+                  <div class="divider__container">
+                    <v-divider />
+                  </div>
+                  <v-list-item-subtitle style="font-weight: bold;" class="panel__spacer">
+                    {{ item.Description }}
                   </v-list-item-subtitle>
                   <v-list-item-subtitle>
-                    About the dish
+                    {{ item.Ingredients[0] }}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Ingredients List
+                  <v-list-item-subtitle style="margin-top: 6px;">
+                    2019-10-04
                   </v-list-item-subtitle>
-                  <v-divider />
-                  <v-list-item-subtitle>
-                    Date
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle>
-                    Time
+                  <v-list-item-subtitle style="margin-bottom: 12px;">
+                    {{ `${Object.keys(item.Schedule)[0]}, ${Object.values(item.Schedule)[0]}` }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -68,8 +69,6 @@
       <v-container>
         <v-row>
           <v-col
-            v-for="item in requested"
-            :key="item.index"
             class="d-flex child-flex"
             cols="4"
           >
@@ -83,39 +82,126 @@
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
+                    <h4>Chef Gibden Rimsay</h4>
+                  </v-list-item-title>
+                  <v-divider />
+                  <v-list-item-subtitle>
+                    <p>
+                      Local Chef interested in Korean Cuisine
+                    </p>
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="font-weight: bold;">
+                    Bibimbap
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Rice, Vegetables
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    2019-10-03
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Sat, 8-9pm
+                  </v-list-item-subtitle>
+                  <div style="margin-top: 22px; text-align: left;">
+                    <v-btn style="margin-right: 6px;" color="primary" small>
+                      Confirm
+                    </v-btn>
+                    <v-btn color="error" small>
+                      Reject
+                    </v-btn>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+          <v-col
+            class="d-flex child-flex"
+            cols="4"
+          >
+            <v-card>
+              <v-list-item>
+                <v-list-item-avatar
+                  size="75"
+                  round
+                >
+                  <img src="../../static/chef-face-two.jpg">
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>
                     <h4>Chef Gordon Ramsay</h4>
                   </v-list-item-title>
                   <v-divider />
                   <v-list-item-subtitle>
                     <p>
-                      Hi! I am a local chef who has speciality in all types of cooking and always looking to find new cuisines!
+                      Local Chef interested in Chinese Cuisine
                     </p>
                   </v-list-item-subtitle>
-                  <v-expand-transition>
-                    <v-card
-                      v-show="expand"
-                      flat
-                      height="100"
-                      width="100"
-                      class="mx-auto"
-                    >
-                      <v-list-item-subtitle>
-                        About the dish
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle>
-                        Ingredients List
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle>
-                        Date
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle>
-                        Time
-                      </v-list-item-subtitle>
-                    </v-card>
-                  </v-expand-transition>
-                  <v-icon @click="expand = !expand">
-                    {{ expand ? `mdi-arrow-up` : `mdi-arrow-down` }}
-                  </v-icon>
+                  <v-list-item-subtitle style="font-weight: bold;">
+                    Black Bean Noodle
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Black Bean, Noodle
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    2019-10-07
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Mon, 3-4pm
+                  </v-list-item-subtitle>
+                  <div style="margin-top: 22px; text-align: left;">
+                    <v-btn style="margin-right: 6px;" color="primary" small>
+                      Confirm
+                    </v-btn>
+                    <v-btn color="error" small>
+                      Reject
+                    </v-btn>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+          <v-col
+            class="d-flex child-flex"
+            cols="4"
+          >
+            <v-card>
+              <v-list-item>
+                <v-list-item-avatar
+                  size="75"
+                  round
+                >
+                  <img src="../../static/chef-face-three.jpg">
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <h4>Chef Gidon Hamsay</h4>
+                  </v-list-item-title>
+                  <v-divider />
+                  <v-list-item-subtitle>
+                    <p>
+                      Local Chef interested in Korean Cuisine
+                    </p>
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="font-weight: bold;">
+                    JapChae
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Vegetables, Beef
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    2019-10-07
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="margin-bottom: 6px">
+                    Mon, 8-9pm
+                  </v-list-item-subtitle>
+                  <div style="margin-top: 22px; text-align: left;">
+                    <v-btn style="margin-right: 6px;" color="primary" small>
+                      Confirm
+                    </v-btn>
+                    <v-btn color="error" small>
+                      Reject
+                    </v-btn>
+                  </div>
                 </v-list-item-content>
               </v-list-item>
             </v-card>
@@ -136,6 +222,7 @@
         <v-btn
           class="commission__btn"
           color="primary"
+          @click="navigateTo('restaurants')"
         >
           Submit
         </v-btn>
@@ -150,7 +237,9 @@ export default {
   layout: 'landing',
   data () {
     return {
-      expand: false,
+      expand_one: false,
+      expand_two: false,
+      expand_three: false,
       commission: {
         time: '',
         date: '2019-09-29'
@@ -200,13 +289,20 @@ export default {
     }
   },
   computed: {
-    restList () {
+    matchList () {
       return this.$store.state.matches
     }
   },
   async fetch ({ store, params }) {
     await store.dispatch('getMatchByRestId', 'Rest001')
     console.log('Mounted')
+  },
+  methods: {
+    navigateTo (url) {
+      if (url === 'restaurants') {
+        this.$router.go()
+      }
+    }
   }
 }
 </script>
@@ -236,5 +332,11 @@ export default {
 .commission__btn {
   margin-top: 16px;
   width: 23%;
+}
+.divider__container {
+  margin: 12px 12px 12px 0;
+}
+.panel__spacer {
+  margin-top: 12px;
 }
 </style>
