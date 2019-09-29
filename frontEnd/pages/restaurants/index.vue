@@ -2,6 +2,14 @@
   <v-layout fill-height>
     <v-flex class="chef__panel">
       <v-list style="padding: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 20% 0 30% 0;">
+          <v-avatar size="75">
+            <img src="../../static/cooking.jpg">
+          </v-avatar>
+          <span style="font-size: 14px; margin-top: 8px; color: #757575">Hell's Kitchen</span>
+          <span style="font-size: 12px; color: #6AAC63; font-weight: bold;">Restaurant</span>
+        </div>
+        <v-divider />
         <v-subheader>
           For Restaurants
         </v-subheader>
@@ -103,7 +111,7 @@
                     Sat, 8-9pm
                   </v-list-item-subtitle>
                   <div style="margin-top: 22px; text-align: left;">
-                    <v-btn style="margin-right: 6px;" color="primary" small>
+                    <v-btn style="margin-right: 6px;" color="success" small>
                       Confirm
                     </v-btn>
                     <v-btn color="error" small>
@@ -149,7 +157,7 @@
                     Mon, 3-4pm
                   </v-list-item-subtitle>
                   <div style="margin-top: 22px; text-align: left;">
-                    <v-btn style="margin-right: 6px;" color="primary" small>
+                    <v-btn style="margin-right: 6px;" color="success" small>
                       Confirm
                     </v-btn>
                     <v-btn color="error" small>
@@ -195,7 +203,99 @@
                     Mon, 8-9pm
                   </v-list-item-subtitle>
                   <div style="margin-top: 22px; text-align: left;">
-                    <v-btn style="margin-right: 6px;" color="primary" small>
+                    <v-btn style="margin-right: 6px;" color="success" small>
+                      Confirm
+                    </v-btn>
+                    <v-btn color="error" small>
+                      Reject
+                    </v-btn>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+          <v-col
+            class="d-flex child-flex"
+            cols="4"
+          >
+            <v-card>
+              <v-list-item>
+                <v-list-item-avatar
+                  size="75"
+                  round
+                >
+                  <img src="../../static/chef-face-four.jpg">
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <h4>Chef Senjitsu</h4>
+                  </v-list-item-title>
+                  <v-divider />
+                  <v-list-item-subtitle>
+                    <p>
+                      Chef interested in Japanese Cuisine
+                    </p>
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="font-weight: bold;">
+                    SakeDon
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Salmon
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    2019-10-07
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="margin-bottom: 6px">
+                    Mon, 7-8pm
+                  </v-list-item-subtitle>
+                  <div style="margin-top: 22px; text-align: left;">
+                    <v-btn style="margin-right: 6px;" color="success" small>
+                      Confirm
+                    </v-btn>
+                    <v-btn color="error" small>
+                      Reject
+                    </v-btn>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+          <v-col
+            class="d-flex child-flex"
+            cols="4"
+          >
+            <v-card>
+              <v-list-item>
+                <v-list-item-avatar
+                  size="75"
+                  round
+                >
+                  <img src="../../static/chef-face-five.jpg">
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <h4>Chef Saitama Sensei</h4>
+                  </v-list-item-title>
+                  <v-divider />
+                  <v-list-item-subtitle>
+                    <p>
+                      Chef interested in Japanese Cuisine
+                    </p>
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="font-weight: bold;">
+                    OyakoDon
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    Chicken, Rice
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    2019-10-08
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle style="margin-bottom: 6px">
+                    Tue, 8-9pm
+                  </v-list-item-subtitle>
+                  <div style="margin-top: 22px; text-align: left;">
+                    <v-btn style="margin-right: 6px;" color="success" small>
                       Confirm
                     </v-btn>
                     <v-btn color="error" small>
@@ -221,7 +321,7 @@
         />
         <v-btn
           class="commission__btn"
-          color="primary"
+          color="success"
           @click="navigateTo('restaurants')"
         >
           Submit

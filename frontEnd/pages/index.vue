@@ -6,10 +6,10 @@
     class="main"
   >
     <v-flex class="main__container__top">
-      <img src="../static/logo-vertical.svg">
+      <img style="height: 30vh;" src="../static/logo-vertical.svg">
     </v-flex>
-    <v-layout>
-      <p class="main__description">
+    <v-layout style="display: flex;" class="main__description">
+      <p style="color: #7B8898;">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia vulputate mi, cursus dapibus massa pretium id. Nulla nibh velit, finibus quis diam a, posuere pharetra tortor. Morbi vel elementum turpis. Morbi ultrices pharetra hendrerit. Vivamus a lectus ex. Phasellus viverra enim vitae lorem pharetra, imperdiet pretium eros euismod. Maecenas quis sem auctor, lobortis erat eu, fermentum purus. Quisque varius quis elit ut rutrum. Vivamus at ipsum in velit sagittis venenatis in a velit. Suspendisse potenti. Sed aliquam tristique quam, ut posuere risus bibendum in. Quisque eros tortor, ornare eget blandit maximus, iaculis et ex. Donec id volutpat felis, ac mollis ex. Nunc in purus tellus. Sed finibus laoreet enim a tincidunt. Duis porta, sem vitae consequat porta, massa nunc luctus orci, ut sagittis velit mauris vitae leo.
       </p>
     </v-layout>
@@ -86,7 +86,7 @@ export default {
 }
 .main__container__top {
   width: 100%;
-  height: 50vh;
+  height: 100vh;
   background: linear-gradient(#BDE270, #6AAC63);
   display: flex;
   justify-content: center;
@@ -99,7 +99,7 @@ export default {
   height: 100%;
 }
 .main__description {
-  padding: 3vh 30vw;
+  padding: 3vh 10vw;
   text-align: justify;
   margin-top: 5vh;
 }
@@ -107,11 +107,11 @@ export default {
   width: 100%;
   height: 30%;
   padding: 0 5%;
-  margin: 5% 0;
 }
 .main__divider {
   width: 100%;
   height: 10vh;
+  margin: 10vh 0;
   display: flex;
   align-items: center;
   justify-content: center;

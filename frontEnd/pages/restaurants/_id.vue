@@ -4,7 +4,7 @@
       <div class="rest_detail__top__section">
         <h1>{{ restInfo.Name }}</h1>
         <p class="rest_detail__subtitle rest_detail__subtitle--first">
-          {{ `${restInfo.Cuisine.join(', ')} Food` }}
+          {{ `${restInfo.Cuisine.join(', ')} Food` || `${restInfo.Cuisine[0]} Food` }}
         </p>
         <p class="rest_detail__subtitle">
           {{ restInfo.address }}

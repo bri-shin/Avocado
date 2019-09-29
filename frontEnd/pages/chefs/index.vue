@@ -2,6 +2,14 @@
   <v-layout fill-height class="chef">
     <v-flex class="chef__panel">
       <v-list style="padding: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 20% 0 30% 0;">
+          <v-avatar size="75">
+            <img src="../../static/chef-face.jpeg">
+          </v-avatar>
+          <span style="font-size: 14px; margin-top: 8px; color: #757575">Gorden Ramsay</span>
+          <span style="font-size: 12px; color: #6AAC63; font-weight: bold;">Chef</span>
+        </div>
+        <v-divider />
         <v-subheader>
           For Chefs
         </v-subheader>
@@ -34,7 +42,7 @@
           >
             <v-list-item-icon>
               <v-avatar color="primary">
-                <v-icon>mdi-account</v-icon>
+                <img :src="item.image">
               </v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
@@ -112,6 +120,7 @@ export default {
 <style lang="scss">
 .chef__section {
   height: 91.5vh;
+  max-width: 50%;
 }
 .chef__panel {
   min-width: 200px;
