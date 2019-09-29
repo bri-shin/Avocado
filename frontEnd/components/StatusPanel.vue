@@ -52,7 +52,7 @@
               v-for="n in 9"
               :key="n"
               class="d-flex child-flex"
-              cols="4"
+              cols="3"
             >
               <v-card>
                 <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" />

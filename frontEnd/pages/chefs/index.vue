@@ -2,6 +2,9 @@
   <v-layout fill-height class="chef">
     <v-flex class="chef__panel">
       <v-list style="padding: 0;">
+        <v-subheader>
+          For Chefs
+        </v-subheader>
         <v-list-item-group v-model="selectedPanel">
           <v-list-item
             v-for="(item, i) in panelList"
