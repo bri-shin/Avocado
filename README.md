@@ -1,7 +1,7 @@
 # Avocado
 An intimate platform that connects aspiring chefs to food enthusiasts at a warm kitchen space 
 
-link: https://www.holyguacamoley.online
+<i>link: https://www.holyguacamoley.online</i>
 
 <i> Submitted to HackNY </i>
 
