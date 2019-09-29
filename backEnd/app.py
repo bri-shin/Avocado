@@ -36,8 +36,35 @@ def getRestaurantData():
     RestID = request.json['RestID'] 
     response = RESTAURANTS.order_by_child('RestID').equal_to(RestID).get()
     for key, value in response.items():
+        print(key)
         print(value)
     return(value)
+
+@app.route("/create-restaurant", methods=['POST'])
+def createRestaurant():
+    RestID = request.json['RestID']
+    Name = request.json['Name']
+    Cuisine = request.json['Cuisine']
+    History = request.json['History']
+    Occ_Limit = request.json['Occupancy Limit']
+    Open_Sch = request.json['Open Schedule']
+    Rent_Rate = request.json['Rental Rate']
+    Position = request.json['position']
+
+
+    payload = {
+        "Cuisine": Cuisine,
+        "History" : History,
+        "Name" : Name,
+        "Occupancy Limit" : Occ_Limit,
+        "Open Schedule" : Open_Sch,
+        "Rental Rate" : Rent_Rate,
+        "RestID" : RestID,
+        "position": Position
+    }
+
+    restaurant = RESTAURANTS.push(payload)
+    return(RestID)
 
 ########### END OF RESTAURANT FUNCTIONS ###########
 
