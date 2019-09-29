@@ -29,12 +29,14 @@ export const actions = {
     const arr = Object.values(data)
     commit('SET_CHEFS', arr)
   },
-  async getMatchByRestId ({ commit }) {
-    const data = await this.$axios.$get(`${API_URL}/get-match-by-restid`)
-    commit('SET_MATCHES', data)
+  async getMatchByRestId ({ commit }, payload) {
+    const data = await this.$axios.$post(`${API_URL}/get-match-by-restid`, { RestID: payload })
+    const arr = Object.values(data)
+    commit('SET_MATCHES', arr)
   },
-  async getMatchByChefId ({ commit }) {
-    const data = await this.$axios.$get(`${API_URL}/get-match-by-chefid`)
-    commit('SET_MATCHES', data)
+  async getMatchByChefId ({ commit }, payload) {
+    const data = await this.$axios.$post(`${API_URL}/get-match-by-chefid`, { ChefID: payload })
+    const arr = Object.values(data)
+    commit('SET_MATCHES', arr)
   }
 }

@@ -39,7 +39,7 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.Name" />
-              <!-- <v-list-item-subtitle v-text="item.location" /> -->
+              <v-list-item-subtitle v-text="item.address" />
               <v-list-item-subtitle v-text="`${item.Cuisine.join(', ')} Cuisine`" />
             </v-list-item-content>
           </v-list-item>
@@ -57,7 +57,7 @@
       </gmap-map>
     </v-flex>
     <v-flex v-if="panelList[selectedPanel] == 'Status'">
-      <StatusPanel />
+      <StatusPanel :confirmed="confirmedMatches" :pending="pendingMatches" />
     </v-flex>
   </v-layout>
 </template>
@@ -82,84 +82,24 @@ export default {
         streetViewControl: false,
         rotateControl: false,
         fullscreenControl: false
-      },
-      restaurant_list: [
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        }
-      ]
+      }
     }
   },
   computed: {
     restList () {
       return this.$store.state.restaurants
+    },
+    confirmedMatches () {
+      return this.$store.state.matches.filter(match => match.Status === 1)
+    },
+    pendingMatches () {
+      return this.$store.state.matches.filter(match => match.Status === 0)
     }
   },
-  created () {
-    this.$store.dispatch('getAllRestaurants')
-    // this.$store.dispatch('getAllMatchesByChefId')
-    console.log('Mounted')
+  async fetch ({ store, params }) {
+    await store.dispatch('getAllRestaurants')
+    await store.dispatch('getMatchByChefId', 'Chef001')
+    console.log('Fetched')
   },
   methods: {
     navigateTo (id) {

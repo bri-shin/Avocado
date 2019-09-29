@@ -204,8 +204,8 @@ export default {
       return this.$store.state.matches
     }
   },
-  mounted () {
-    this.$store.dispatch('getMatchByRestId', 'Rest001')
+  async fetch ({ store, params }) {
+    await store.dispatch('getMatchByRestId', 'Rest001')
     console.log('Mounted')
   }
 }

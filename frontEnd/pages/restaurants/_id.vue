@@ -2,15 +2,15 @@
   <v-layout column>
     <v-flex class="rest_detail__top">
       <div class="rest_detail__top__section">
-        <h1>{{ input.name }}</h1>
+        <h1>{{ restInfo.Name }}</h1>
         <p class="rest_detail__subtitle rest_detail__subtitle--first">
-          {{ input.cuisine }}
+          {{ `${restInfo.Cuisine.join(', ')} Food` }}
         </p>
         <p class="rest_detail__subtitle">
-          {{ input.location }}
+          {{ restInfo.address }}
         </p>
         <p class="rest_detail__subtitle">
-          {{ `Max Occupancy: ${input.occupancy}` }}
+          {{ `Max Occupancy: ${restInfo.occupancy_limit}` }}
         </p>
       </div>
       <div class="rest_detail__top__section rest_detail__top__section--btn">
@@ -19,19 +19,14 @@
         </v-btn>
       </div>
     </v-flex>
-    <v-flex class="rest_detail__section">
+    <v-flex class="rest_detail__section rest_detail__section--description">
       <p>
-        {{ input.description }}
+        {{ restInfo.Description }}
       </p>
+      <v-divider />
     </v-flex>
     <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/11/1000/300" />
-    </v-flex>
-    <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/12/1000/300" />
-    </v-flex>
-    <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/13/1000/300" />
+      <v-img :src="restInfo.image" />
     </v-flex>
     <v-dialog v-model="modal" persistent max-width="600px">
       <v-card>
@@ -57,7 +52,7 @@
           />
           <v-select
             v-model="request.time"
-            :items="input.time"
+            :items="Object.keys(restInfo.open_schedule)"
             label="Available Time"
           />
         </v-card-text>
@@ -87,29 +82,6 @@ export default {
         ingredients: [],
         description: '',
         time: ''
-      },
-      input: {
-        name: 'Restaurant Name',
-        location: '140 East 14th Street, New York, NY, 10003',
-        cuisine: 'Indian Food',
-        occupancy: 10,
-        image: '',
-        description: `
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-        `,
-        time: [
-          '2019-10-5 14:00 ~ 16:00',
-          '2019-10-6 14:00 ~ 16:00',
-          '2019-10-7 14:00 ~ 16:00'
-        ],
-        position: {
-          lat: 40.730610,
-          lng: -73.935242
-        }
       }
     }
   },
@@ -117,7 +89,11 @@ export default {
     restInfo () {
       const { id } = this.$route.params
       const restaurants = this.$store.state.restaurants
+      return restaurants.filter(item => item.RestID === id)[0]
     }
+  },
+  async fetch ({ store, params }) {
+    await store.dispatch('getAllRestaurants')
   }
 }
 </script>
@@ -145,5 +121,9 @@ export default {
   &--first {
     margin-bottom: 16px !important;
   }
+}
+.rest_detail__section--description {
+  width: 50%;
+  text-align: justify;
 }
 </style>
