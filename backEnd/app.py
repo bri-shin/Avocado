@@ -92,15 +92,7 @@ def getFoodieData():
     for key, value in response.items():
         print(value)
     return(value)
-
-@app.route("/get-foodie-data", methods=['POST'])
-def getFoodieData():
-    FoodieID = request.json['CustID']
-    response = RESTAURANTS.order_by_child('CustID').equal_to(FoodieID).get()
-    for key, value in response.items():
-        print(value)
-    return(value)
-
+    
 ########### END OF FOODIE FUNCTIONS ###########
 
 
@@ -115,7 +107,6 @@ def createMatch():
     match = request.json
     print(type(match))
     create_match = MATCHED.push(match)
-
     return create_match
 
 ########### END OF MISC FUNCTIONS ###########
