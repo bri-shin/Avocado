@@ -33,9 +33,10 @@ MATCHED = db.reference('matched')
 
 ########### RESTAURANT FUNCTIONS ##############
 
+
 @app.route("/get-restaurant-data", methods=['POST'])
 def getRestaurantData():
-    RestID = request.json['RestID'] 
+    RestID = request.json['RestID']
     response = RESTAURANTS.order_by_child('RestID').equal_to(RestID).get()
     for key, value in response.items():
         print(value)
@@ -44,18 +45,30 @@ def getRestaurantData():
 ########### END OF RESTAURANT FUNCTIONS ###########
 
 
-
 ########## CHEF FUCTIONS #######################
 
+@app.route("/get-chef-data", methods=['POST'])
+def getChefData():
+    ChefID = request.json['ChefID']
+    response = RESTAURANTS.order_by_child('ChefID').equal_to(ChefID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
 ########### END OF CHEF FUNCTIONS ###########
 
 
-
 ########## FOODIE FUCTIONS #######################
 
-########### END OF FOODIE FUNCTIONS ###########
+@app.route("/get-foodie-data", methods=['POST'])
+def getFoodieData():
+    FoodieID = request.json['CustID']
+    response = RESTAURANTS.order_by_child('CustID').equal_to(FoodieID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
+########### END OF FOODIE FUNCTIONS ###########
 
 
 ########## GOOGLE MAPS FUNCTIONS #######################
@@ -63,9 +76,15 @@ def getRestaurantData():
 ########### END OF GOOGLE MAPS FUNCTIONS ###########
 
 
-
 ########## MISC FUCTIONS #######################
-def createMatch(chefID, restID):
-    
+@app.route("/create-match", methods=['POST'])
+def createMatch():
+    match = request.json
+    print(type(match))
+    create_match = MATCHED.push(match)
+
+    return create_match
+
 
 ########### END OF MISC FUNCTIONS ###########
+
