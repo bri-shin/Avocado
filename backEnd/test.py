@@ -6,6 +6,10 @@ url2 = "http://127.0.0.1:5000/get-chef-data"
 url3 = "http://127.0.0.1:5000/get-foodie-data"
 match_url = "http://127.0.0.1:5000/create-match"
 
+url4 = "http://127.0.0.1:5000/get-match-by-chefid"
+url5= "https://avocadohackny.appspot.com/get-all-restaurants"
+
+
 payload1 = {
     "RestID": "Rest001",
 }
@@ -22,8 +26,16 @@ match_info = {
     'ChefID': 'Chef001', 'Cuisine': ['Korean'], 'Description': "Spicy Tteokbokki", 'Ingredients': ['ricecake'], 'RestID': 'Rest002', 'Schedule': {'Friday': '7-8pm', 'Monday': '', 'Saturday': '', 'Sunday': '5-6pm', 'Thursday': '', 'Tuesday': '', 'Wednesday': ''}, 'Status': 'True'
 }
 
-res1 = requests.post(url1, data=json.dumps(payload1), headers={
-                     'Content-Type': 'application/json'})
+payload4 = {
+    "ChefID" : "Chef001"
+}
+
+
+# res1 = requests.post(url4, data=json.dumps(payload4), headers={'Content-Type': 'application/json'})
+
+
+res5 = requests.get(url5,headers={'Content-Type': 'application/json'})
+
 # res2 = requests.post(url2, data=json.dumps(payload2), headers={
 #                      'Content-Type': 'application/json'})
 # res3 = requests.post(url3, data=json.dumps(payload3), headers={
@@ -33,7 +45,7 @@ res1 = requests.post(url1, data=json.dumps(payload1), headers={
 #     'Content-Type': 'application/json'
 # })
 
-print(res1.content)
+print(res5.content)
 print("\n")
 # print(res2.content)
 # print("\n")

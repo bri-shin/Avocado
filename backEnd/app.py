@@ -33,6 +33,15 @@ MATCHED = db.reference('matched')
 
 ########### RESTAURANT FUNCTIONS ##############
 
+@app.route("/get-all-restaurants", methods=['GET'])
+def getAllRestaurants():
+    response = RESTAURANTS.get()
+    return(json.dumps(response))
+
+@app.route("/get-all-chefs", methods=['GET'])
+def getAllChefs():
+    response = CHEFS.get()
+    return(json.dumps(response))
 
 @app.route("/get-restaurant-data", methods=['POST'])
 def getRestaurantData():
@@ -92,7 +101,7 @@ def getFoodieData():
     for key, value in response.items():
         print(value)
     return(value)
-    
+
 ########### END OF FOODIE FUNCTIONS ###########
 
 
@@ -105,9 +114,27 @@ def getFoodieData():
 @app.route("/create-match", methods=['POST'])
 def createMatch():
     match = request.json
-    print(type(match))
     create_match = MATCHED.push(match)
     return create_match
+
+@app.route("/get-match-by-restid", methods=['POST'])
+def getMatchByRestID():
+    RestID = request.json['RestID'] 
+    response = MATCHED.order_by_child('RestID').equal_to(RestID).get()
+    return(dict(response.items()))
+
+@app.route("/get-match-by-chefid", methods=['POST'])
+def getMatchByChefID():
+    ChefID = request.json['ChefID'] 
+    response = MATCHED.order_by_child('ChefID').equal_to(ChefID).get()
+    return (dict(response.items()))
+
+@app.route("/get-pending-matches-by-chefid", methods=['POST'])
+def getPendingMatchesByChefID():
+    pass
+
+
+
 
 ########### END OF MISC FUNCTIONS ###########
 
