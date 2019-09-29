@@ -1,7 +1,7 @@
 import requests
 import json
 
-url1 = "http://127.0.0.1:5000/get-restaurant-data"
+url1 = "http://127.0.0.1:5000/get-pending-matches-by-chefid"
 url2 = "http://127.0.0.1:5000/get-chef-data"
 url3 = "http://127.0.0.1:5000/get-foodie-data"
 all_rest_url = "http://127.0.0.1:5000/get-all-restaurants"
@@ -25,58 +25,33 @@ payload3 = {
 }
 
 match_info = {
-    'ChefID': 'Chef001', 'Cuisine': ['Korean'], 'Description': "Spicy Tteokbokki", 'Ingredients': ['ricecake'], 'RestID': 'Rest002', 'Schedule': {'Friday': '7-8pm', 'Monday': '', 'Saturday': '', 'Sunday': '5-6pm', 'Thursday': '', 'Tuesday': '', 'Wednesday': ''}, 'Status': 'True'
+    'ChefID': 'Chef001', 'Cuisine': ['Korean'], 'Description': "Kimchi", 'Ingredients': ['Cabbage'], 'RestID': 'Rest001', 'Schedule': {'Friday': '7-8pm', 'Monday': '', 'Saturday': '', 'Sunday': '5-6pm', 'Thursday': '', 'Tuesday': '', 'Wednesday': ''}, 'Status': 1
 }
 
-<<<<<<< HEAD
 payload4 = {
     "ChefID" : "Chef001"
 }
 
 
-# res1 = requests.post(url4, data=json.dumps(payload4), headers={'Content-Type': 'application/json'})
+res1 = requests.post(url1, data=json.dumps(payload4), headers={'Content-Type': 'application/json'})
 
 
-res5 = requests.get(url5,headers={'Content-Type': 'application/json'})
+# res5 = requests.get(url5,headers={'Content-Type': 'application/json'})
 
 # res2 = requests.post(url2, data=json.dumps(payload2), headers={
 #                      'Content-Type': 'application/json'})
 # res3 = requests.post(url3, data=json.dumps(payload3), headers={
 #                      'Content-Type': 'application/json'})
-=======
-favorite_chef = {
-    'ChefID': 'Chef002',
-    'CustID': 'Cust001'
-}
-
-res1 = requests.post(url1, data=json.dumps(payload1), headers={
-                     'Content-Type': 'application/json'})
-res2 = requests.post(url2, data=json.dumps(payload2), headers={
-                     'Content-Type': 'application/json'})
-res3 = requests.post(url3, data=json.dumps(payload3), headers={
-                     'Content-Type': 'application/json'})
-all_rest = requests.get(all_rest_url)
-
-
->>>>>>> 0f092d308d823c5fda34c6b604a6f28ce1ebeda9
 
 # match_res = requests.post(match_url, data=json.dumps(match_info), headers={
-#     'Content-Type': 'application/json'
-# })
-
-<<<<<<< HEAD
-print(res5.content)
-=======
-# fav_res = requests.post(fav_url, data=json.dumps(favorite_chef), headers={
-#                      'Content-Type': 'application/json'})
+#     'Content-Type': 'application/json'})
 
 print(res1.content)
->>>>>>> 0f092d308d823c5fda34c6b604a6f28ce1ebeda9
 print("\n")
-print(res2.content)
-print("\n")
-print(res3.content)
-print("\n\n\n")
-print(all_rest.content)
+# print(res2.content)
+# print("\n")
+# print(res3.content)
+# print("\n\n\n")
+# print(all_rest.content)
 
 

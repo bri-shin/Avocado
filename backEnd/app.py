@@ -5,6 +5,7 @@ Backend server for Avocado - HackNY 2019
 # Flask Imports
 import flask
 from flask import request
+from flask_cors import CORS
 
 # Firebase Imports
 import firebase_admin
@@ -18,6 +19,7 @@ import json
 # Starting Up
 
 app = flask.Flask(__name__)
+CORS(app)
 
 cred = credentials.Certificate(
     "tofu-hack-firebase-adminsdk-c151z-fe8bbb6fc3.json")
@@ -46,23 +48,11 @@ def getAllChefs():
 @app.route("/get-restaurant-data", methods=['POST'])
 def getRestaurantData():
     RestID = request.json['RestID']
-    response = RESTAURANTS.order_by_child('RestID').equal_to(RestID).get()
+    response = RESTAURANTS.order_by_child('RestCORS(app)ID').equal_to(RestID).get()
     for key, value in response.items():
         print(key)
         print(value)
     return(value)
-
-@app.route("/get-all-restaurants", methods=['GET'])
-def getAllRestaurants():
-    rest_list = RESTAURANTS.get()
-    rlist= []
-    for key in rest_list:
-        rlist.append(rest_list[key])
-    rdict = {
-        '0': rlist
-    }
-
-    return rdict
 
 @app.route("/create-restaurant", methods=['POST'])
 def createRestaurant():
@@ -113,10 +103,6 @@ def getFoodieData():
     for key, value in response.items():
         print(value)
     return(value)
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
 
 @app.route("/add-favorite", methods=['POST'])
 def addFavorite():
@@ -133,10 +119,6 @@ def addFavorite():
     return favorite_chef
 
 
-=======
-    
->>>>>>> e3c99941c3833cf82e87eb611373e957bc2736ee
->>>>>>> 0f092d308d823c5fda34c6b604a6f28ce1ebeda9
 ########### END OF FOODIE FUNCTIONS ###########
 
 
@@ -166,9 +148,74 @@ def getMatchByChefID():
 
 @app.route("/get-pending-matches-by-chefid", methods=['POST'])
 def getPendingMatchesByChefID():
-    pass
+    ChefID = request.json['ChefID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('ChefID').equal_to(ChefID).get()
+    for key, value in response.items():
+         if(value['Status'] == 0):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
 
+@app.route("/get-pending-matches-by-restid", methods=['POST'])
+def getPendingMatchesByRestID():
+    RestID = request.json['RestID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('RestID').equal_to(RestID).get()
+    for key, value in response.items():
+         if(value['Status'] == 0):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
 
+@app.route("/get-accepted-matches-by-restid", methods=['POST'])
+def getAcceptedMatchesByRestID():
+    RestID = request.json['RestID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('RestID').equal_to(RestID).get()
+    for key, value in response.items():
+         if(value['Status'] == 1):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
 
+@app.route("/get-accepted-matches-by-custid", methods=['POST'])
+def getAcceptedMatchesByCustID():
+    CustID = request.json['CustID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('CustID').equal_to(CustID).get()
+    for key, value in response.items():
+         if(value['Status'] == 1):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
+
+@app.route("/get-rejected-matches-by-custid", methods=['POST'])
+def getRejectedMatchesByCustID():
+    CustID = request.json['CustID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('CustID').equal_to(CustID).get()
+    for key, value in response.items():
+         if(value['Status'] == 2):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
+
+@app.route("/get-rejected-matches-by-restid", methods=['POST'])
+def getRejectedMatchesByRestID():
+    RestID = request.json['RestID'] 
+    count = 0
+    returnDict = {}
+    response = MATCHED.order_by_child('RestID').equal_to(RestID).get()
+    for key, value in response.items():
+         if(value['Status'] == 2):
+             returnDict[count] = value
+             count+=1
+    return(returnDict)
 
 ########### END OF MISC FUNCTIONS ###########
