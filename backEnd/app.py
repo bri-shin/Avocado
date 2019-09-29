@@ -28,12 +28,15 @@ firebase_admin.initialize_app(cred, {
 RESTAURANTS = db.reference('restaurants')
 FOODIES = db.reference('foodies')
 CHEFS = db.reference('chefs')
+RSVP = db.reference('RSVP')
+MATCHED = db.reference('matched')
 
 ########### RESTAURANT FUNCTIONS ##############
 
+
 @app.route("/get-restaurant-data", methods=['POST'])
 def getRestaurantData():
-    RestID = request.json['RestID'] 
+    RestID = request.json['RestID']
     response = RESTAURANTS.order_by_child('RestID').equal_to(RestID).get()
     for key, value in response.items():
         print(key)
@@ -69,7 +72,6 @@ def createRestaurant():
 ########### END OF RESTAURANT FUNCTIONS ###########
 
 
-
 ########## CHEF FUCTIONS #######################
 @app.route("/get-chef-data", methods=['POST'])
 def getChefData():
@@ -82,7 +84,6 @@ def getChefData():
 ########### END OF CHEF FUNCTIONS ###########
 
 
-
 ########## FOODIE FUCTIONS #######################
 @app.route("/get-foodie-data", methods=['POST'])
 def getFoodieData():
@@ -92,8 +93,15 @@ def getFoodieData():
         print(value)
     return(value)
 
-########### END OF FOODIE FUNCTIONS ###########
+@app.route("/get-foodie-data", methods=['POST'])
+def getFoodieData():
+    FoodieID = request.json['CustID']
+    response = RESTAURANTS.order_by_child('CustID').equal_to(FoodieID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
+########### END OF FOODIE FUNCTIONS ###########
 
 
 ########## GOOGLE MAPS FUNCTIONS #######################
@@ -101,7 +109,14 @@ def getFoodieData():
 ########### END OF GOOGLE MAPS FUNCTIONS ###########
 
 
-
 ########## MISC FUCTIONS #######################
+@app.route("/create-match", methods=['POST'])
+def createMatch():
+    match = request.json
+    print(type(match))
+    create_match = MATCHED.push(match)
+
+    return create_match
 
 ########### END OF MISC FUNCTIONS ###########
+
