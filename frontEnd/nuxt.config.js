@@ -56,6 +56,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    credentials: false
   },
   /*
   ** vuetify module configuration
