@@ -188,24 +188,24 @@ def getAcceptedMatchesByRestID():
              count+=1
     return(returnDict)
 
-@app.route("/get-accepted-matches-by-custid", methods=['POST'])
-def getAcceptedMatchesByCustID():
-    CustID = request.json['CustID'] 
+@app.route("/get-accepted-matches-by-chefid", methods=['POST'])
+def getAcceptedMatchesByChefID():
+    ChefID = request.json['ChefID'] 
     count = 0
     returnDict = {}
-    response = MATCHED.order_by_child('CustID').equal_to(CustID).get()
+    response = MATCHED.order_by_child('ChefID').equal_to(ChefID).get()
     for key, value in response.items():
          if(value['Status'] == 1):
              returnDict[count] = value
              count+=1
     return(returnDict)
 
-@app.route("/get-rejected-matches-by-custid", methods=['POST'])
-def getRejectedMatchesByCustID():
-    CustID = request.json['CustID'] 
+@app.route("/get-rejected-matches-by-chefid", methods=['POST'])
+def getRejectedMatchesByChefID():
+    ChefID = request.json['ChefID'] 
     count = 0
     returnDict = {}
-    response = MATCHED.order_by_child('CustID').equal_to(CustID).get()
+    response = MATCHED.order_by_child('ChefID').equal_to(ChefID).get()
     for key, value in response.items():
          if(value['Status'] == 2):
              returnDict[count] = value
