@@ -395,7 +395,6 @@ export default {
   },
   async fetch ({ store, params }) {
     await store.dispatch('getMatchByRestId', 'Rest001')
-    console.log('Mounted')
   },
   methods: {
     navigateTo (url) {

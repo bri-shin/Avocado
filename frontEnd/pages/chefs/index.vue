@@ -107,7 +107,6 @@ export default {
   async fetch ({ store, params }) {
     await store.dispatch('getAllRestaurants')
     await store.dispatch('getMatchByChefId', 'Chef001')
-    console.log('Fetched')
   },
   methods: {
     navigateTo (id) {
