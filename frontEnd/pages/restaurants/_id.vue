@@ -1,10 +1,17 @@
 <template>
-  <v-layout column>
+  <v-layout column class="rest_detail">
+    <v-flex class="rest_detail__section">
+      <v-img :src="restInfo.image" />
+    </v-flex>
     <v-flex class="rest_detail__top">
       <div class="rest_detail__top__section">
         <h1>{{ restInfo.Name }}</h1>
         <p class="rest_detail__subtitle rest_detail__subtitle--first">
           {{ `${restInfo.Cuisine.join(', ')} Food` || `${restInfo.Cuisine[0]} Food` }}
+        </p>
+        <p class="rest_detail__subtitle">
+          <v-icon small>mdi-star</v-icon>
+          4.1/5.0
         </p>
         <p class="rest_detail__subtitle">
           {{ restInfo.address }}
@@ -26,7 +33,36 @@
       <v-divider />
     </v-flex>
     <v-flex class="rest_detail__section">
-      <v-img :src="restInfo.image" />
+      <p class="rest_detail__subtitle rest_detail__extendmb">
+        Past Collaborated Chefs
+      </p>
+      <span class="rest_detail__chefFaces">
+        <v-avatar
+          size="50"
+          round
+        >
+          <img src="../../static/chef-face-four.jpg">
+        </v-avatar>
+        <v-avatar
+          size="50"
+          round
+        >
+          <img src="../../static/chef-face-five.jpg">
+        </v-avatar>
+      </span>
+    </v-flex>
+    <v-flex class="rest_detail__section">
+      <gmap-map
+        :center="{ lat: parseFloat(restInfo.position.lat), lng: parseFloat(restInfo.position.lng) }"
+        :map-type-id="mapTypeId"
+        :zoom="16"
+        :options="options"
+        class="id__googleMaps"
+      >
+        <gmap-marker
+          :position="{ lat: parseFloat(restInfo.position.lat), lng: parseFloat(restInfo.position.lng) }"
+        />
+      </gmap-map>
     </v-flex>
     <v-dialog v-model="modal" persistent max-width="600px">
       <v-card>
@@ -82,6 +118,15 @@ export default {
         ingredients: [],
         description: '',
         time: ''
+      },
+      center: { lat: 40.729772, lng: -73.99941111 },
+      mapTypeId: 'terrain',
+      options: {
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
       }
     }
   },
@@ -99,6 +144,9 @@ export default {
 </script>
 
 <style lang="scss">
+.rest_detail {
+  margin: 0 20vw;
+}
 .rest_detail__top {
   display: flex;
   margin-top: 32px;
@@ -108,7 +156,6 @@ export default {
 }
 .rest_detail__top__section {
   flex: 1;
-  width: 50%;
   &--btn {
     display: flex;
     justify-content: flex-end;
@@ -123,7 +170,14 @@ export default {
   }
 }
 .rest_detail__section--description {
-  width: 50%;
+  // width: 50%;
   text-align: justify;
+}
+.rest_detail__extendmb {
+  margin-bottom: 16px !important;
+}
+.id__googleMaps {
+  height: 300px !important;
+  width: 100%;
 }
 </style>

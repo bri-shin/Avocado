@@ -59,8 +59,8 @@
         <gmap-marker
           v-for="(item, index) in restList"
           :key="index"
-          :position="item.position"
-          @click="center = item.position"
+          :position="{ lat: parseFloat(item.position.lat), lng: parseFloat(item.position.lng) }"
+          @click="center = { lat: parseFloat(item.position.lat), lng: parseFloat(item.position.lng) }"
         />
       </gmap-map>
     </v-flex>
