@@ -1,0 +1,177 @@
+<template>
+  <v-layout fill-height class="chef">
+    <v-flex class="chef__panel">
+      <v-list style="padding: 0;">
+        <v-list-item-group v-model="selectedPanel">
+          <v-list-item
+            v-for="(item, i) in panelList"
+            :key="i"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-flex>
+    <v-flex v-if="panelList[selectedPanel] == 'Restaurants'" scrollable class="chef__section">
+      <v-subheader style="background: white;">
+        Available Restaurants
+      </v-subheader>
+      <v-divider />
+      <v-list three-line max-height="93%" class="overflow-y-auto chef__list">
+        <v-list-item-group v-model="selected">
+          <v-list-item
+            v-for="(item, i) in restaurant_list"
+            :key="i"
+            class="chef__restaurant__item"
+            @click="navigateTo(item.id)"
+          >
+            <v-list-item-icon>
+              <v-avatar color="primary">
+                <v-icon>mdi-account</v-icon>
+              </v-avatar>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name" />
+              <v-list-item-subtitle v-text="item.location" />
+              <v-list-item-subtitle v-text="`${item.cuisine} Cuisine`" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-flex>
+    <v-flex v-if="panelList[selectedPanel] == 'Restaurants'">
+      <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="14" :options="options">
+        <gmap-marker
+          v-for="(item, index) in restaurant_list"
+          :key="index"
+          :position="item.position"
+          @click="center = item.position"
+        />
+      </gmap-map>
+    </v-flex>
+    <v-flex v-if="panelList[selectedPanel] == 'Status'">
+      <StatusPanel />
+    </v-flex>
+  </v-layout>
+</template>
+
+<script>
+import StatusPanel from '@/components/StatusPanel'
+export default {
+  layout: 'landing',
+  components: {
+    StatusPanel
+  },
+  data () {
+    return {
+      panelList: ['Restaurants', 'Status'],
+      selectedPanel: 0,
+      selected: '',
+      center: { lat: 40.730610, lng: -73.935242 },
+      mapTypeId: 'terrain',
+      options: {
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
+      },
+      restaurant_list: [
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        },
+        {
+          id: '123',
+          name: 'abc',
+          location: 'location1',
+          cuisine: 'Korean',
+          image: '',
+          position: { lat: -0.48585, lng: 117.1466 }
+        }
+      ]
+    }
+  },
+  methods: {
+    navigateTo (id) {
+      this.$router.push(`restaurants/${id}`)
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.chef__section {
+  height: 91.5vh;
+}
+.chef__panel {
+  min-width: 200px;
+  max-width: 200px;
+  background: white;
+  border-right: 1px solid #e0e0e0;
+  height: 91.5vh;
+}
+.chef__restaurant__item + .chef__restaurant__item {
+  border-top: 1px solid #E0E0E0;
+}
+.vue-map-container {
+  height: 100%;
+  width: 100%;
+}
+</style>
