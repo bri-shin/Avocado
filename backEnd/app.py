@@ -46,11 +46,10 @@ def getRestaurantData():
 
 
 ########## CHEF FUCTIONS #######################
-
 @app.route("/get-chef-data", methods=['POST'])
 def getChefData():
-    ChefID = request.json['ChefID']
-    response = RESTAURANTS.order_by_child('ChefID').equal_to(ChefID).get()
+    ChefID = request.json['ChefID'] 
+    response = CHEFS.order_by_child('ChefID').equal_to(ChefID).get()
     for key, value in response.items():
         print(value)
     return(value)
@@ -59,6 +58,13 @@ def getChefData():
 
 
 ########## FOODIE FUCTIONS #######################
+@app.route("/get-foodie-data", methods=['POST'])
+def getFoodieData():
+    FoodieID = request.json['CustID'] 
+    response = FOODIES.order_by_child('CustID').equal_to(FoodieID).get()
+    for key, value in response.items():
+        print(value)
+    return(value)
 
 @app.route("/get-foodie-data", methods=['POST'])
 def getFoodieData():
@@ -84,7 +90,6 @@ def createMatch():
     create_match = MATCHED.push(match)
 
     return create_match
-
 
 ########### END OF MISC FUNCTIONS ###########
 
