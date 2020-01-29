@@ -21,24 +21,31 @@
         <v-container>
           <v-row>
             <v-col
-              v-for="item in matched"
+              v-for="item in confirmed"
               :key="item.index"
               class="d-flex child-flex"
               cols="3"
             >
               <v-card>
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" />
-                <v-card-title>{{ item.restaurant_name }}</v-card-title>
+                <v-img :src="getRestImage(item.RestID)" class="status__image" />
+                <v-card-title>
+                  {{ getRestName(item.RestID) }}
+                </v-card-title>
                 <v-card-text>
+                  <v-divider />
+                  <p class="status__subtitle__header">
+                    Proposed Plan
+                  </p>
                   <p class="status__subtitle status__subtitle__first">
-                    {{ item.cuisine_name }}
+                    {{ `${item.Cuisine[0]} Cuisine` }}
+                  </p>
+                  <p class="status__subtitle status__subtitle__title">
+                    {{ item.Description }}
                   </p>
                   <p class="status__subtitle">
-                    {{ item.description }}
+                    {{ item.Ingredients.join(', ') }}
                   </p>
-                  <span v-for="i in item.ingredients" :key="i.index" class="status__subtitle">{{ `${i} ` }}</span>
-                  <p>{{ item.date }}</p>
-                  <p>{{ item.time }}</p>
+                  <p>{{ item.time || 'Monday, 6-8pm' }}</p>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -49,15 +56,32 @@
         <v-container>
           <v-row>
             <v-col
-              v-for="n in 9"
-              :key="n"
+              v-for="item in pending"
+              :key="item.index"
               class="d-flex child-flex"
               cols="3"
             >
               <v-card>
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" />
-                <v-card-title>Card Title</v-card-title>
-                <v-card-text>Card Text</v-card-text>
+                <v-img :src="getRestImage(item.RestID)" class="status__image" />
+                <v-card-title>
+                  {{ getRestName(item.RestID) }}
+                </v-card-title>
+                <v-card-text>
+                  <v-divider />
+                  <p class="status__subtitle__header">
+                    Proposed Plan
+                  </p>
+                  <p class="status__subtitle status__subtitle__first">
+                    {{ `${item.Cuisine[0]} Cuisine` }}
+                  </p>
+                  <p class="status__subtitle status__subtitle__title">
+                    {{ item.Description }}
+                  </p>
+                  <p class="status__subtitle">
+                    {{ item.Ingredients.join(', ') }}
+                  </p>
+                  <p>{{ item.time || 'Monday, 6-8pm' }}</p>
+                </v-card-text>
               </v-card>
             </v-col>
           </v-row>
@@ -70,6 +94,7 @@
 <script>
 export default {
   name: 'StatusPanelComponent',
+  props: ['confirmed', 'pending'],
   data () {
     return {
       tab: 'tab-1',
@@ -104,6 +129,16 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    getRestName (id) {
+      const restList = this.$store.state.restaurants
+      return restList.filter(rest => rest.RestID === id)[0].Name
+    },
+    getRestImage (id) {
+      const restList = this.$store.state.restaurants
+      return restList.filter(rest => rest.RestID === id)[0].image
+    }
   }
 }
 </script>
@@ -117,5 +152,15 @@ export default {
 }
 .status_divider {
   margin-top: 12px !important;
+}
+.status__subtitle__title {
+  font-weight: bold;
+}
+.status__subtitle__first {
+  margin-top: 12px;
+}
+.status__image {
+  min-height: 50%;
+  max-height: 50%;
 }
 </style>

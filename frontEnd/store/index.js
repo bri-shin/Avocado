@@ -21,18 +21,22 @@ const API_URL = 'https://avocadohackny.appspot.com'
 export const actions = {
   async getAllRestaurants ({ commit }) {
     const data = await this.$axios.$get(`${API_URL}/get-all-restaurants`)
-    commit('SET_RESTAURANTS', data)
+    const arr = Object.values(data)
+    commit('SET_RESTAURANTS', arr)
   },
   async getAllChefs ({ commit }) {
     const data = await this.$axios.$get(`${API_URL}/get-all-chefs`)
-    commit('SET_CHEFS', data)
+    const arr = Object.values(data)
+    commit('SET_CHEFS', arr)
   },
-  async getMatchByRestId ({ commit }) {
-    const data = await this.$axios.$get(`${API_URL}/get-match-by-restid`)
-    commit('SET_MATCHES', data)
+  async getMatchByRestId ({ commit }, payload) {
+    const data = await this.$axios.$post(`${API_URL}/get-match-by-restid`, { RestID: payload })
+    const arr = Object.values(data)
+    commit('SET_MATCHES', arr)
   },
-  async getMatchByCustId ({ commit }) {
-    const data = await this.$axios.$get(`${API_URL}/get-match-by-custid`)
-    commit('SET_MATCHES', data)
+  async getMatchByChefId ({ commit }, payload) {
+    const data = await this.$axios.$post(`${API_URL}/get-match-by-chefid`, { ChefID: payload })
+    const arr = Object.values(data)
+    commit('SET_MATCHES', arr)
   }
 }

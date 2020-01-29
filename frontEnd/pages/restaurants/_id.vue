@@ -1,16 +1,23 @@
 <template>
-  <v-layout column>
+  <v-layout column class="rest_detail">
+    <v-flex class="rest_detail__section">
+      <v-img :src="restInfo.image" />
+    </v-flex>
     <v-flex class="rest_detail__top">
       <div class="rest_detail__top__section">
-        <h1>{{ input.name }}</h1>
+        <h1>{{ restInfo.Name }}</h1>
         <p class="rest_detail__subtitle rest_detail__subtitle--first">
-          {{ input.cuisine }}
+          {{ `${restInfo.Cuisine.join(', ')} Food` || `${restInfo.Cuisine[0]} Food` }}
         </p>
         <p class="rest_detail__subtitle">
-          {{ input.location }}
+          <v-icon small>mdi-star</v-icon>
+          4.1/5.0
         </p>
         <p class="rest_detail__subtitle">
-          {{ `Max Occupancy: ${input.occupancy}` }}
+          {{ restInfo.address }}
+        </p>
+        <p class="rest_detail__subtitle">
+          {{ `Max Occupancy: ${restInfo.occupancy_limit}` }}
         </p>
       </div>
       <div class="rest_detail__top__section rest_detail__top__section--btn">
@@ -19,19 +26,43 @@
         </v-btn>
       </div>
     </v-flex>
-    <v-flex class="rest_detail__section">
+    <v-flex class="rest_detail__section rest_detail__section--description">
       <p>
-        {{ input.description }}
+        {{ restInfo.Description }}
       </p>
+      <v-divider />
     </v-flex>
     <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/11/1000/300" />
+      <p class="rest_detail__subtitle rest_detail__extendmb">
+        Past Collaborated Chefs
+      </p>
+      <span class="rest_detail__chefFaces">
+        <v-avatar
+          size="50"
+          round
+        >
+          <img src="../../static/chef-face-four.jpg">
+        </v-avatar>
+        <v-avatar
+          size="50"
+          round
+        >
+          <img src="../../static/chef-face-five.jpg">
+        </v-avatar>
+      </span>
     </v-flex>
     <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/12/1000/300" />
-    </v-flex>
-    <v-flex class="rest_detail__section">
-      <v-img src="https://picsum.photos/id/13/1000/300" />
+      <gmap-map
+        :center="{ lat: parseFloat(restInfo.position.lat), lng: parseFloat(restInfo.position.lng) }"
+        :map-type-id="mapTypeId"
+        :zoom="16"
+        :options="options"
+        class="id__googleMaps"
+      >
+        <gmap-marker
+          :position="{ lat: parseFloat(restInfo.position.lat), lng: parseFloat(restInfo.position.lng) }"
+        />
+      </gmap-map>
     </v-flex>
     <v-dialog v-model="modal" persistent max-width="600px">
       <v-card>
@@ -57,7 +88,7 @@
           />
           <v-select
             v-model="request.time"
-            :items="input.time"
+            :items="Object.keys(restInfo.open_schedule)"
             label="Available Time"
           />
         </v-card-text>
@@ -88,35 +119,34 @@ export default {
         description: '',
         time: ''
       },
-      input: {
-        name: 'Restaurant Name',
-        location: '140 East 14th Street, New York, NY, 10003',
-        cuisine: 'Indian Food',
-        occupancy: 10,
-        image: '',
-        description: `
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-          This is a description for the restaurant, This is a description for the restaurant,
-        `,
-        time: [
-          '2019-10-5 14:00 ~ 16:00',
-          '2019-10-6 14:00 ~ 16:00',
-          '2019-10-7 14:00 ~ 16:00'
-        ],
-        position: {
-          lat: 40.730610,
-          lng: -73.935242
-        }
+      center: { lat: 40.729772, lng: -73.99941111 },
+      mapTypeId: 'terrain',
+      options: {
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
       }
     }
+  },
+  computed: {
+    restInfo () {
+      const { id } = this.$route.params
+      const restaurants = this.$store.state.restaurants
+      return restaurants.filter(item => item.RestID === id)[0]
+    }
+  },
+  async fetch ({ store, params }) {
+    await store.dispatch('getAllRestaurants')
   }
 }
 </script>
 
 <style lang="scss">
+.rest_detail {
+  margin: 0 20vw;
+}
 .rest_detail__top {
   display: flex;
   margin-top: 32px;
@@ -126,7 +156,6 @@ export default {
 }
 .rest_detail__top__section {
   flex: 1;
-  width: 50%;
   &--btn {
     display: flex;
     justify-content: flex-end;
@@ -139,5 +168,16 @@ export default {
   &--first {
     margin-bottom: 16px !important;
   }
+}
+.rest_detail__section--description {
+  // width: 50%;
+  text-align: justify;
+}
+.rest_detail__extendmb {
+  margin-bottom: 16px !important;
+}
+.id__googleMaps {
+  height: 300px !important;
+  width: 100%;
 }
 </style>

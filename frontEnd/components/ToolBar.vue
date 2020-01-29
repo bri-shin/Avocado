@@ -32,4 +32,7 @@ export default {
   color: white !important;
   font-size: 10px;
 }
+.toolbar {
+  background: url('../static/toolbar-bg.png') repeat-x;
+}
 </style>

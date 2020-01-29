@@ -2,6 +2,14 @@
   <v-layout fill-height class="chef">
     <v-flex class="chef__panel">
       <v-list style="padding: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 20% 0 30% 0;">
+          <v-avatar size="75">
+            <img src="../../static/chef-face.jpeg">
+          </v-avatar>
+          <span style="font-size: 14px; margin-top: 8px; color: #757575">Gorden Ramsay</span>
+          <span style="font-size: 12px; color: #6AAC63; font-weight: bold;">Chef</span>
+        </div>
+        <v-divider />
         <v-subheader>
           For Chefs
         </v-subheader>
@@ -27,20 +35,20 @@
       <v-list three-line max-height="93%" class="overflow-y-auto chef__list">
         <v-list-item-group v-model="selected">
           <v-list-item
-            v-for="(item, i) in restaurant_list"
+            v-for="(item, i) in restList"
             :key="i"
             class="chef__restaurant__item"
-            @click="navigateTo(item.id)"
+            @click="navigateTo(item.RestID)"
           >
             <v-list-item-icon>
               <v-avatar color="primary">
-                <v-icon>mdi-account</v-icon>
+                <img :src="item.image">
               </v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title v-text="item.name" />
-              <v-list-item-subtitle v-text="item.location" />
-              <v-list-item-subtitle v-text="`${item.cuisine} Cuisine`" />
+              <v-list-item-title v-text="item.Name" />
+              <v-list-item-subtitle v-text="item.address" />
+              <v-list-item-subtitle v-text="`${item.Cuisine.join(', ')} Cuisine`" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -49,15 +57,15 @@
     <v-flex v-if="panelList[selectedPanel] == 'Restaurants'">
       <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="14" :options="options">
         <gmap-marker
-          v-for="(item, index) in restaurant_list"
+          v-for="(item, index) in restList"
           :key="index"
-          :position="item.position"
-          @click="center = item.position"
+          :position="{ lat: parseFloat(item.position.lat), lng: parseFloat(item.position.lng) }"
+          @click="center = { lat: parseFloat(item.position.lat), lng: parseFloat(item.position.lng) }"
         />
       </gmap-map>
     </v-flex>
     <v-flex v-if="panelList[selectedPanel] == 'Status'">
-      <StatusPanel />
+      <StatusPanel :confirmed="confirmedMatches" :pending="pendingMatches" />
     </v-flex>
   </v-layout>
 </template>
@@ -74,7 +82,7 @@ export default {
       panelList: ['Restaurants', 'Status'],
       selectedPanel: 0,
       selected: '',
-      center: { lat: 40.730610, lng: -73.935242 },
+      center: { lat: 40.729772, lng: -73.99941111 },
       mapTypeId: 'terrain',
       options: {
         mapTypeControl: false,
@@ -82,74 +90,23 @@ export default {
         streetViewControl: false,
         rotateControl: false,
         fullscreenControl: false
-      },
-      restaurant_list: [
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        },
-        {
-          id: '123',
-          name: 'abc',
-          location: 'location1',
-          cuisine: 'Korean',
-          image: '',
-          position: { lat: -0.48585, lng: 117.1466 }
-        }
-      ]
+      }
     }
+  },
+  computed: {
+    restList () {
+      return this.$store.state.restaurants
+    },
+    confirmedMatches () {
+      return this.$store.state.matches.filter(match => match.Status === 1)
+    },
+    pendingMatches () {
+      return this.$store.state.matches.filter(match => match.Status === 0)
+    }
+  },
+  async fetch ({ store, params }) {
+    await store.dispatch('getAllRestaurants')
+    await store.dispatch('getMatchByChefId', 'Chef001')
   },
   methods: {
     navigateTo (id) {
@@ -162,6 +119,7 @@ export default {
 <style lang="scss">
 .chef__section {
   height: 91.5vh;
+  max-width: 50%;
 }
 .chef__panel {
   min-width: 200px;

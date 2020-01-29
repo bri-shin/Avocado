@@ -6,11 +6,14 @@
     class="main"
   >
     <v-flex class="main__container__top">
-      <img src="../static/logo-vertical.svg">
+      <img class="main__container__top__logo" src="../static/logo-vertical.svg">
+      <v-icon large>
+        mdi-menu-down
+      </v-icon>
     </v-flex>
-    <v-layout>
-      <p class="main__description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia vulputate mi, cursus dapibus massa pretium id. Nulla nibh velit, finibus quis diam a, posuere pharetra tortor. Morbi vel elementum turpis. Morbi ultrices pharetra hendrerit. Vivamus a lectus ex. Phasellus viverra enim vitae lorem pharetra, imperdiet pretium eros euismod. Maecenas quis sem auctor, lobortis erat eu, fermentum purus. Quisque varius quis elit ut rutrum. Vivamus at ipsum in velit sagittis venenatis in a velit. Suspendisse potenti. Sed aliquam tristique quam, ut posuere risus bibendum in. Quisque eros tortor, ornare eget blandit maximus, iaculis et ex. Donec id volutpat felis, ac mollis ex. Nunc in purus tellus. Sed finibus laoreet enim a tincidunt. Duis porta, sem vitae consequat porta, massa nunc luctus orci, ut sagittis velit mauris vitae leo.
+    <v-layout style="display: flex;" class="main__description">
+      <p style="color: #7B8898;">
+        The web application has features that directly addresses the pain points of our target users. Aspiring chefs can sign up on the app and list out their cuisines of specialization. Restaurants can sign up and list any free time slots that they might have, as well as what cuisine they specialize in. Chefs can then apply to occupy a time slot at a particular restaurant, and it is up to the restaurant to decide whether or not they will allow the chef to occupy the space.To help them make this decision, each chef will have a composite rating score based on their past performances and customer ratings of them. In the event where the restaurant agrees to give the space to the chef, they may be compensated in two different ways : a) A flat "rent" cost at a nominal rate b) A portion of the chef's earnings for the day. Customers, or foodies, will be presented a list of restaurants that have such chefs cooking at them, and they have an option of RSVP'ing for a meal at a flat rate. In addition to this, the foodies are provided with recommendations of which chefs' cuisines they might enjoy next.
       </p>
     </v-layout>
     <div class="main__divider">
@@ -43,10 +46,6 @@
 export default {
   name: 'LandingPage',
   layout: 'default',
-  mounted () {
-    this.$store.dispatch('getAllRestaurants')
-    console.log('Mounted')
-  },
   methods: {
     navigateTo (url, id) {
       this.$router.push(url)
@@ -67,13 +66,13 @@ export default {
   background-position: center;
 }
 .image--one {
-  background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/chef-main.jpg');
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/chef-main.jpg');
 }
 .image--two {
-  background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/restaurant-main.jpg');
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/restaurant-main.jpg');
 }
 .image--three {
-  background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/foodie-main.jpg');
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #A8A8A8 100%), url('../static/foodie-main.jpg');
 }
 .main__tabs__description {
   font-family: Helvetica;
@@ -90,12 +89,19 @@ export default {
 }
 .main__container__top {
   width: 100%;
-  height: 50vh;
-  background: linear-gradient(#BDE270, #6AAC63);
+  height: 120vh;
+  background: linear-gradient(rgba(190, 226, 112, 0.94), #6AAC63), url('../static/landing-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
   padding-bottom: 12px;
+  &__logo {
+    height: 45vh;
+    text-align: center;
+  }
 }
 .main__logo {
   color: black;
@@ -103,7 +109,7 @@ export default {
   height: 100%;
 }
 .main__description {
-  padding: 3vh 30vw;
+  padding: 3vh 10vw;
   text-align: justify;
   margin-top: 5vh;
 }
@@ -111,11 +117,11 @@ export default {
   width: 100%;
   height: 30%;
   padding: 0 5%;
-  margin: 5% 0;
 }
 .main__divider {
   width: 100%;
   height: 10vh;
+  margin: 10vh 0;
   display: flex;
   align-items: center;
   justify-content: center;
