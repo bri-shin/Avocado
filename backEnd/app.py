@@ -1,5 +1,7 @@
 '''
 Backend server for Avocado - HackNY 2019 
+
+Made by abdullah zameek, brian shin, yung ju rick kim and amber li
 '''
 
 # Flask Imports
